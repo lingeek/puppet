@@ -21,9 +21,9 @@ This is a module for installing and configure Squid3.
 
 Supported OS:
 
-RedHat 7
-Ubuntu 14
-OpenBSD 5.8 - later
+*RedHat 7
+*Ubuntu 14
+*OpenBSD 5.8 - later
 
 
 ## Setup
