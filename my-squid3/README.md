@@ -19,13 +19,6 @@ This is a module for installing and configure Squid3.
 
 ## Module Description
 
-Supported OS:
-
-1. RedHat 7
-2. Ubuntu 14
-3. OpenBSD 5.8
-4. Solaris 10 -later
-
 For the moment this module will setup a no-caching functional proxy server.
 
 
@@ -69,7 +62,12 @@ with things. (We are working on automating this section!)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Supported OS:
+
+1. RedHat 7
+2. Ubuntu 14
+3. OpenBSD 5.8
+4. Solaris 10 -later
 
 ## Development
 
