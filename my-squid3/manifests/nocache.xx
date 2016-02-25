@@ -1,0 +1,113 @@
+class my-squid3::nocache ( 
+
+$http_port                     = undef,
+$visible_hostname              = undef,
+$access_log                    = undef,
+$template                      = 'my-squid3/main_file.erb',
+$squid_user                    = 'squid',
+$squid_group                   = 'squid',
+$package_version               = 'installed',
+#$package_name                  = $::my-squid3::params::package_name,
+$service_ensure                = 'running',
+#$service_enable                = $::my-squid3::params::service_enable,
+#$service_name                  = $::my-squid3::params::service_name,
+
+) inherits ::my-squid3::params {
+
+include ::my-squid3::user
+
+$use_template = $template ? {
+'nocache' => 'my-squid3/nocache.erb',
+'default' => 'my-squid3/main_file.erb',
+default => $template,
+
+}
+
+
+package { 'squid3_package':
+    ensure => $package_version,
+    name   => $package_name,
+  }
+
+
+service { 'squid3_service':
+    ensure    => $service_ensure,
+    enable    => $service_enable,
+    name      => $service_name,
+    restart   => "systemctl restart ${service_name}",
+    #path      => [ '/sbin', '/usr/sbin', '/usr/local/etc/rc.d' ],
+    hasstatus => true,
+    require   => Package['squid3_package'],
+  }
+
+
+
+
+
+file { '/etc/squid/squid.conf':
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('my-squid3/main_file.erb'),
+    notify  => Service['squid3_service'],
+    require => Package['squid3_package'],
+  }
+
+
+
+
+
+#file { $config_file:
+#    ensure       => file,
+#    require      => Package['squid3_package'],
+#    notify       => Service['squid3_service'],
+    #content      => template($template),
+#    content      => template('my-squid3/main_file.erb'),
+#    validate_cmd => "/usr/sbin/${service_name} -k parse -f %",
+#  }
+
+
+file { $squid_conf_acl:
+    ensure  => directory,
+    require => Package['squid3_package'],
+    purge   => true,  # We made this directory, delete anything not managed by us
+    recurse => true,  # For recursive cleaning
+    force   => true,  # To ensure deletion of unmanaged folders too
+    notify  => Service['squid3_service'];
+}
+
+file { $squid_conf:
+    ensure  => directory,
+    require => Package['squid3_package'],
+    purge   => true,  # We made this directory, delete anything not managed by us
+    recurse => true,  # For recursive cleaning
+    force   => true,  # To ensure deletion of unmanaged folders too
+    notify  => Service['squid3_service'];
+}
+
+file { $squid_acl_file:
+    ensure       => file,
+    require      => Package['squid3_package'],
+    notify       => Service['squid3_service'],
+    content      => template('my-squid3/acl.erb'),
+    validate_cmd => "/usr/sbin/${service_name} -k parse -f %",
+  }
+
+
+
+file { $squid_log_file:
+    ensure       => file,
+    require      => Package['squid3_package'],
+    notify       => Service['squid3_service'],
+    content      => template('my-squid3/log.erb'),
+    validate_cmd => "/usr/sbin/${service_name} -k parse -f %",
+  }
+
+
+
+
+
+
+
+}

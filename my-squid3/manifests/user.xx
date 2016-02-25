@@ -1,0 +1,12 @@
+class my-squid3::user {
+
+user { 'squid':
+  ensure           => 'present',
+  home             => '/var/spool/squid',
+  password         => '!!',
+  password_max_age => '-1',
+  password_min_age => '-1',
+  shell            => '/sbin/nologin',
+}
+
+}
