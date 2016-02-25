@@ -1,1 +1,1 @@
-# puppet
+# Here are my Puppet modules.
