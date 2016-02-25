@@ -23,7 +23,7 @@ Supported OS:
 
 1. RedHat 7
 2. Ubuntu 14
-3. OpenBSD 5.8 - later
+3. OpenBSD 5.8
 
 
 ## Setup
