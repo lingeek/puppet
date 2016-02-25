@@ -40,10 +40,11 @@ class my-squid3 {
 require my-squid3::params
 include my-squid3::install
 include my-squid3::service
+include my-squid3::config
 
 
 
-Class['my-squid3::install'] ~> Class['my-squid3::service']
+#Class['my-squid3::install'] ~> Class['my-squid3::service'] -> Class['my-squid3::config']
 
 }
 
