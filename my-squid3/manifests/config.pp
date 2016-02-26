@@ -8,7 +8,20 @@ file { $service_dir:
         ensure => directory,
         #owner => 'root',
         #group => 'root',
-        #recurse => true,
+        recurse => true,
+        #mode => 0755,
+        require => Class["my-squid3::install"],
+    }
+
+
+
+
+#Create conf.d folder
+file { $service_config_dir:
+        ensure => directory,
+        #owner => 'root',
+        #group => 'root',
+        recurse => true,
         #mode => 0755,
         require => Class["my-squid3::install"],
     }
@@ -32,12 +45,12 @@ file { $service_file:
 
 
 
-#Create configuration folder
+#Create acl folder
 file { $acl_dir:
         ensure => directory,
         #owner => 'root',
         #group => 'root',
-        #recurse => true,
+        recurse => true,
         #mode => 0755,
         require => Class["my-squid3::install"],
     }
