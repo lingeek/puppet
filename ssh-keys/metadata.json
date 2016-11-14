@@ -1,8 +1,8 @@
 {
-  "name": "pr-motd",
+  "name": "ssh-keys",
   "version": "0.1.0",
   "author": "Alexandru Raul",
-  "summary": "Motd module with YAML or JSON",
+  "summary": "Module for copy SSH keys from YAML files",
   "license": "Apache 2.0",
   "source": "",
   "project_page": null,
